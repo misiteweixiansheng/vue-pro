@@ -6,29 +6,57 @@ const BuyCar =()=>import ('../pages/buyCar/BuyCar.vue')
 const SeeGoods =()=>import ('../pages/seeGoods/SeeGoods.vue')
 const Profile =()=>import ('../pages/profile/Profile.vue')
 
+
+import Recommend from "../pages/home/children/recommend/recommend.vue"
+import FamilyLife from "../pages/home/children/family-life/family-life.vue"
 export default [
     {
         path:'/home',
-        compoent:Home
+        name:'/home',
+        component:Home,
+        children:[
+        {
+            path:'/home/recommend',
+            name:'/home/recommend',
+            component:Recommend
+        },
+        {
+            path:'/home/familylife',
+            name:'/home/familylife',
+            component:FamilyLife
+        },
+        {
+            path: '',
+            redirect: '/home/recommend'
+          }
+        ]
     },
     
     {
         path:'/categorys',
-        compoent:Categorys
+        name:'/categorys',
+        component:Categorys
     },
     
     {
         path:'/buycar',
-        compoent:BuyCar
+        name:'/buycar',
+        component:BuyCar
     },
     
     {
         path:'/seegoods',
-        compoent:SeeGoods
+        name:'/seegoods',
+        component:SeeGoods
     },
     
     {
         path:'/profile',
-        compoent:Profile
+        name:'/profile',
+        component:Profile
+    },
+    {
+        path:'/',
+        redirect:'/home'
     }
 ]

@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <Header />
-      <!-- <router-view/> -->
+      <router-view/>
     <Footer />
   </div>
 </template>
@@ -16,7 +15,6 @@ import SeeGoods from './pages/seeGoods/SeeGoods.vue'
 import Profile from './pages/profile/Profile.vue'
 
 export default {
-  name: 'app',
   components: {
     Header,
     Footer,
@@ -29,7 +27,7 @@ export default {
 }
 </script>
 
-<style  lang='stylus' rel='stylesheet/stylus'> 
+<style  lang='stylus' rel='stylesheet/stylus' scoped> 
   #app
    width 100%
    height 100%
