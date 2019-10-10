@@ -6,23 +6,24 @@ const BuyCar =()=>import ('../pages/buyCar/BuyCar.vue')
 const SeeGoods =()=>import ('../pages/seeGoods/SeeGoods.vue')
 const Profile =()=>import ('../pages/profile/Profile.vue')
 
+const CategoryList=()=>import ('../pages/categorys/components/categoryList.vue')
 
 import Recommend from "../pages/home/children/recommend/recommend.vue"
 import FamilyLife from "../pages/home/children/family-life/family-life.vue"
+import Login from "../pages/profile/components/login.vue"
+
+
 export default [
     {
         path:'/home',
-        name:'/home',
         component:Home,
         children:[
         {
             path:'/home/recommend',
-            name:'/home/recommend',
             component:Recommend
         },
         {
             path:'/home/familylife',
-            name:'/home/familylife',
             component:FamilyLife
         },
         {
@@ -34,26 +35,38 @@ export default [
     
     {
         path:'/categorys',
-        name:'/categorys',
-        component:Categorys
+        component:Categorys,
+        children:[
+            {
+                path:'/categorys/item/:id',
+                component:CategoryList
+            },
+            {
+                path:'',
+                redirect:'/categorys/item/1022001'
+            }
+        ]
     },
     
     {
         path:'/buycar',
-        name:'/buycar',
         component:BuyCar
     },
     
     {
         path:'/seegoods',
-        name:'/seegoods',
         component:SeeGoods
     },
     
     {
         path:'/profile',
-        name:'/profile',
-        component:Profile
+        component:Profile,
+        children:[
+            {
+            path:'/profile/login/:id',   
+            component:Login
+            }
+        ]
     },
     {
         path:'/',

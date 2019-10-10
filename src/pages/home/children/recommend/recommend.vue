@@ -4,7 +4,9 @@
       <nav class="swiper-nav">
           <Swiper/>
       </nav>
-      <Policy :policyList="policyList"/>
+      <Policy :policyList="homelist.policyDescList"/>
+      <KingKongModule :kklist="homelist.kingKongModule"/>
+      <IndexActivityModule :activeModule="homelist.indexActivityModule"/>
    </div>
  </div>
 </template>
@@ -13,23 +15,28 @@
 import {reqHome} from "../../../../api"
 import Swiper from "./components/swiper"
 import Policy from "./components/policyList"
+import KingKongModule from "./components/kingKongModule"
+import IndexActivityModule from "./components/indexActivityModule"
+import {mapState} from "vuex"
+import Bscroll from "better-scroll"
 export default{
-  data(){
-    return {
-      policyList:[]
-    }
-  },
+  computed:{
+   ...mapState({
+      homelist:state=>state.recommend.homelist
+   })
+  }
+  ,
   components:{
     Swiper,
-    Policy
+    Policy,
+    KingKongModule,
+    IndexActivityModule
   },
- async mounted(){
-    let result=await reqHome()
-      console.log(result)
-    if(result.data&&result.data.policyDescList.length>0){
-      this.policyList=result.data.policyDescList
-      console.log(this.policyList)
-    }
+  mounted(){
+    this.$store.dispatch("getHomeList")
+    new Bscroll(" .recom-wrapper",{
+      click:true
+    })
   }
 }
 </script>
@@ -38,5 +45,5 @@ export default{
   .recom-wrapper
     margin-top 150px
     width 100%
-    height 100%
+    height 1080px
 </style>

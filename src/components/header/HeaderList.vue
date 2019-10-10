@@ -1,7 +1,7 @@
 <template>
  <div class="header-list">
     <div class="list-wrapper" :class="{width:$route.path.match('/seegoods')}">
-    <ul class="list" v-show="isShow||$route.path.match('/seegoods')">
+    <ul class="list-header" v-show="isShow||$route.path.match('/seegoods')">
       <li :class="{active:$route.path==='/home/recommend'}" @click="$router.push('/home/recommend')">
         <span class="item">推荐</span>
       </li>
@@ -98,12 +98,13 @@ export default {
       padding-left 30px
       font-size 28px
       padding-top 10px
-    .list
+    .list-header
       display flex
       li
         display flex
         white-space:nowrap
         height 60px
+        line-height 60px
         margin-left 30px
         padding 0 16px
         justify-content space-between

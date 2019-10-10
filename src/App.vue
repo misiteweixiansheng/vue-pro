@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <router-view/>
-    <Footer />
+    <Footer v-if="!$route.path.match('/profile')"/>
   </div>
 </template>
 
@@ -29,6 +29,10 @@ export default {
 
 <style  lang='stylus' rel='stylesheet/stylus' scoped> 
   #app
+   position absolute
+   top 0
+   bottom 0
    width 100%
    height 100%
+   overflow hidden
 </style>

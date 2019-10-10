@@ -4,7 +4,7 @@
             <swiper-slide v-for='item of swiperList' :key="item.id">
                 <img :src="item.imgUrl" class="swiper-img">
             </swiper-slide>
-            <div class="swiper-pagination"  slot="pagination" v-for='item of swiperList' :key="item.id"></div>
+            <div class="swiper-pagination" slot="pagination" v-for='item of swiperList' :key="item.id"></div>
         </swiper>
     </div>
 </template>
@@ -67,7 +67,6 @@ export default {
         overflow hidden
         width 100%
         height 370px
-        margin-bottom 20px
         .swiper-img
             width 100%
 </style>

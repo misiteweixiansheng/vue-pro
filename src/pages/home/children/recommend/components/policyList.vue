@@ -32,6 +32,7 @@ export default {
         height 72px
         border-bottom 1px solid #ccc
         li
+          height 72px
           line-height 72px
           vertical-align middle
           .icon 
@@ -39,6 +40,7 @@ export default {
             width 32px
             height 32px
             img
+              margin-top 6px
               display block
               width 100%
 </style>

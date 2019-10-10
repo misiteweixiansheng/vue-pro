@@ -32,6 +32,7 @@ export default {
       position fixed
       width 100%
       top 0px
+      z-index 100
       background #fff
       border-bottom 1px solid #ccc
       #header-wraper
