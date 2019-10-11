@@ -1,33 +1,12 @@
 <template>
  <div class="header-list">
     <div class="list-wrapper" :class="{width:$route.path.match('/seegoods')}">
-    <ul class="list-header" v-show="isShow||$route.path.match('/seegoods')">
-      <li :class="{active:$route.path==='/home/recommend'}" @click="$router.push('/home/recommend')">
+    <ul class="list" v-show="isShow||$route.path.match('/seegoods')">
+      <li :class="{active:$route.path==='/home/recommend'}" @click="$router.push('/home/recommend')" v-if="$route.path==='/home/recommend'">
         <span class="item">推荐</span>
       </li>
-      <li :class="{active:$route.path==='/home/familylife'}" @click="$router.push('/home/familylife')">
-        <span class="item">居家生活</span>
-      </li>
-      <li>
-        <span class="item">服饰鞋包</span>
-      </li>
-      <li>
-        <span class="item">美食酒水</span>
-      </li>
-      <li>
-        <span class="item">美食酒水</span>
-      </li>
-      <li>
-        <span class="item">美食酒水</span>
-      </li>
-      <li>
-        <span class="item">美食酒水</span>
-      </li>
-      <li>
-        <span class="item">美食酒水</span>
-      </li>
-      <li>
-        <span class="item">美食酒水</span>
+      <li @click="$router.push('/home/recommend')"  v-for="(item,index) in seeGoodsArr" :key="index">
+        <span class="item">{{item.tabName||item.text}}</span>
       </li>
     </ul>
      <div class="toggle-header" >
@@ -36,21 +15,14 @@
     </div>
     <div class="linear-wrap" v-if="!$route.path.match('/seegoods')">
       <div class="linear"></div>
-      <div class="arrow" :class="{active:!isShow}"  @click="isShow=!isShow">
+      <div class="arrow" :class="{active:!isShow}"  @click="$store.commit('setIsShow',!isShow)">
         <img src="//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/arrow-down-3-799ded53ea.png" alt="">
       </div>
     </div>
       <div class="mask-list" v-show="!isShow&&!$route.path.match('/seegoods')">
         <ul class="open-list" @click="isActive(event)">
               <li class="open-item active" @click="$route.push('/home/recommend')"><span>推荐</span></li>
-              <li class="open-item"><span>居家生活</span></li>
-              <li class="open-item"><span>居家生活</span></li>
-              <li class="open-item"><span>居家生活</span></li>
-              <li class="open-item"><span>居家生活</span></li>
-              <li class="open-item"><span>居家生活</span></li>
-              <li class="open-item"><span>居家生活</span></li>
-              <li class="open-item"><span>居家生活</span></li>
-              <li class="open-item"><span>居家生活</span></li>
+              <li class="open-item" @click="$route.push('/home/recommend')" v-for="(item,index) in seeGoodsArr" :key="index"><span>{{item.tabName||item.text}}</span></li>
         </ul>
         <div class="cover"></div>
       </div>
@@ -59,20 +31,20 @@
 
 <script>
 import BScroll from 'better-scroll'
+import {mapState} from "vuex"
 export default {
-  data(){
-   return {
-      isShow:true
-    }
-   },
-   methods:{
-      isActive(eve){
-        if(eve.target.nodeName==="LI"){
-
-        }
-      }
-   },
+  computed:{
+    ...mapState({
+      seeGoodsArr:(state)=>state.header.seeGoodsArr,
+      isShow:(state)=>state.header.isShow
+    })
+  },
   mounted(){
+    if(this.$route.path==='/seegoods'){
+      this.$store.dispatch("getSeeGoodsHeader")
+    }else if(this.$route.path==='/home/recommend'){
+      this.$store.dispatch("getHomeHeader")
+    }
      new BScroll('.list-wrapper',{
       scrollX:true,
       click:true
@@ -98,13 +70,13 @@ export default {
       padding-left 30px
       font-size 28px
       padding-top 10px
-    .list-header
+    .list
       display flex
+      margin-bottom 0
       li
         display flex
         white-space:nowrap
         height 60px
-        line-height 60px
         margin-left 30px
         padding 0 16px
         justify-content space-between

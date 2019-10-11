@@ -82,7 +82,7 @@ export default {
                 height 200px
                 position relative
                 left 100px
-                bottom 40px
+                bottom 80px
               
               
 </style>

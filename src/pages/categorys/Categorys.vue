@@ -14,53 +14,55 @@
             </li>
           </ul>
         </div>
-            <router-view class="route" :category="item"/>
+            <router-view class="route"/>
         </div>
     </div>
 </template>
 
 <script>
-import {reqCategory,reqCategoryList} from "../../api"
+import {RECIEVE_ITEM} from "../../vuex/mutation-types"
 import Header from "../../components/header/Header"
 import CategoryList from "./components/categoryList"
-import BScroll from "better-scroll"
+import Bscroll from "better-scroll"
+import {mapState,mapMutations,mapActions} from "vuex"
+
 export default {
-  props:['reqCategory'],
-  data(){
-    return {
-      item:{},
-      category:[],
-      isActive:false
-    }
-  },
+  computed:{
+    ...mapState({
+      category:(state)=>state.categorylist.category,
+      item:(state)=>state.categorylist.item
+    })
+  }
+  ,
   methods:{
     goto(item){
       if(this.$route.path===`/categorys/item/${item.id}`){
         return;
       }
       this.$router.push(`/categorys/item/${item.id}`)
-      this.item=item
+      // this.item=item
+      this.$store.commit(RECIEVE_ITEM,item)
     }
   }
   ,
   components:{
-    Header,
-    CategoryList
+    Header
   },
   watch:{
     category(){
-      this.$nexTick(()=>{
-        new Bscroll(".left-nav-wrapper",{
-          click:true
+        this.$nextTick(()=>{
+          new Bscroll(".left-nav-wrapper",{
+            click:true
           })
       })
     }
   },
-  async mounted(){
-    const result =await reqCategory()
-    if(result.data.categoryL1List){
-      this.category=result.data.categoryL1List
-    }
+  mounted(){
+    const params=this.$route.params.id
+    this.$store.dispatch("getCategorys",params)
+    new Bscroll(".left-nav-wrapper",{
+            click:true
+          })
   }
 }
 </script>

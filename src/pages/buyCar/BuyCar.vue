@@ -25,7 +25,7 @@
           <img src="//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/noCart-d6193bd6e4.png" alt="">
           去添加点什么吧
           </div>
-          <button>
+          <button  @click="$router.replace('/profile')">
             登录
           </button>
         </div>

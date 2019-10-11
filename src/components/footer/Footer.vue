@@ -5,7 +5,7 @@
           <i :class="{active:$route.path.match('/home')}"></i><span :class="{active:$route.path==='/home'}">首页</span>
          </a>
          <a href="##" class="item" @click="goto('/categorys')">
-          <i :class="{active:$route.path==='/categorys'}"></i><span :class="{active:$route.path==='/categorys'}">分类</span>
+          <i :class="{active:$route.path.match('/categorys')}"></i><span :class="{active:$route.path==='/categorys'}">分类</span>
          </a>
          <a href="##" class="item" @click="goto('/seegoods')">
           <i :class="{active:$route.path==='/seegoods'}"></i><span :class="{active:$route.path==='/seegoods'}">识物</span>

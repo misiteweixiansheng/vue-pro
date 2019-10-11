@@ -11,6 +11,7 @@ const CategoryList=()=>import ('../pages/categorys/components/categoryList.vue')
 import Recommend from "../pages/home/children/recommend/recommend.vue"
 import FamilyLife from "../pages/home/children/family-life/family-life.vue"
 import Login from "../pages/profile/components/login.vue"
+import Search from "../pages/search/Search.vue"
 
 
 export default [
@@ -67,6 +68,11 @@ export default [
             component:Login
             }
         ]
+    },
+
+    {
+        path:"/search",
+        component:Search
     },
     {
         path:'/',

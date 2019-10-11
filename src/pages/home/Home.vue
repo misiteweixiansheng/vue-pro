@@ -2,11 +2,11 @@
  <div class="home-wrapper">
     <Header>
       <div slot='logo' class="logo"></div>
-      <div slot='search' class="search">
+      <div slot='search' class="search"  @click="$router.push('/search')">
         <img src="//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/search2-553dba3aff.png"/>
          <span>搜索商品,共23080款好物</span>
       </div>
-      <div slot='button' class="button">登录</div>
+      <div slot='button' class="button" @click="$router.replace('/profile')">登录</div>
      </Header>
      <router-view></router-view>
  </div>
@@ -14,13 +14,9 @@
 
 <script>
 import Header from "../../components/header/Header"
-import Recommend from "./children/recommend/recommend"
-import FamilyLife from "./children/family-life/family-life"
 export default {
   components:{
-    Header,
-    Recommend,
-    FamilyLife
+    Header
   },
   mounted(){
    

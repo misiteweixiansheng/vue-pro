@@ -1,6 +1,6 @@
 <template>
  <div class="kingkong-wrapper">
-    <ul>
+    <ul v-if="kklist">
       <li v-for="(item,index) in kklist.kingKongList" :key="index">
         <a href="##">
           <img :src="item.picUrl" alt="">

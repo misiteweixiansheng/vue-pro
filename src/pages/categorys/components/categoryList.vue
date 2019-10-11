@@ -1,13 +1,19 @@
 <template>
  <div class="wrapper-route">
-   <div class="list-wrapper">
+   <div class="list-wrapper" v-if="item.subCateList">
       <div class="swiper">
-        <img :src="category.bannerUrl" alt="居家生活大图">
+        <img :src="item.bannerUrl" alt="居家生活大图">
       </div>
-      <ul class="list">
-        <li class="item" v-for="(item,index) in category.subCateList" :key="index">
-          <img :src="item.wapBannerUrl" :alt="item.name">
-          <span>{{item.name}}</span>
+      <ul class="list" >
+        <li class="item" v-for="(ele,index) in item.subCateList" :key="index">
+          <img :src="ele.wapBannerUrl" :alt="ele.name">
+          <span>{{ele.name}}</span>
+        </li>
+      </ul>
+      <ul class="list" >
+        <li class="item" v-for="(ele,index) in item.subCateList" :key="index">
+          <img :src="ele.wapBannerUrl" :alt="ele.name">
+          <span>{{ele.name}}</span>
         </li>
       </ul>
    </div>
@@ -15,25 +21,31 @@
 </template>
 <script>
 import BScroll from "better-scroll"
+import {mapState} from "vuex"
 export default {
-  props:["category"],
+  computed:{
+  ...mapState({
+    item:(state)=>state.categorylist.item
+  })
+  },
   watch:{
-    category(){
+    item(){
       this.$nextTick(()=>{
-        console.log("sss")
         new BScroll('.wrapper-route',{
           click:true
-        })
-      }
+          })
+        }
       )
     }
   },
   mounted(){
-      if(this.category.subCateList.length){
-        new BScroll('.wrapper',{
-          click:true
-        })
-      }
+      this.$nextTick(
+        ()=>{ 
+          new BScroll('.wrapper',{
+            click:true
+          })
+        }
+      )
   }
 }
 </script>

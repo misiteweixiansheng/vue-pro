@@ -25,3 +25,7 @@ input,button{
 button{
   background:#fff;
 }
+li{
+  list-style: none;
+  
+}

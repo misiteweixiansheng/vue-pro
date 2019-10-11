@@ -1,36 +1,86 @@
 <template>
     <div class="wrapper">
       <Header>
-        <div slot="logo" class="logo">
-
+        <div slot="logo" class="logo" @click="$router.replace('/home')">
         </div>
         <div slot="search" class="nav">
-         <router-link class="find active" to="/home">发现</router-link>
-         <router-link class="selected" to="/category">甄选家</router-link>
+         <router-link class="find active" to="/seegoods">发现</router-link>
+         <router-link class="selected" to="/selected">甄选家</router-link>
         </div>
         <div slot="button" class="button">
-          <router-link class="search" to="/home"></router-link>
-          <router-link class="buycar" to="/home"></router-link>
+          <router-link class="search" to="/search"></router-link>
+          <router-link class="buycar" to="/buycar"></router-link>
         </div>
       </Header>
       <div class="content">
-        <ul class="ul1">
-          <li>
-            <img src="https://yanxuan.nosdn.127.net/9b83d46a01159e7a42d97598dc442172.jpg?imageView&quality=65&thumbnail=690y376" alt="">
-          </li>
-        </ul>
-        <ul class="ul2">
-          <li></li>
-        </ul>
+        <div class="list-goods">
+        <li v-for="(item,index) in goodsArr" :key="index">
+          <div>
+            <ul class="recommend" v-if="item.ad">
+              <li>
+                <img :src="item.ad.picUrl" alt="">
+              </li>
+            </ul>
+            <div v-for="(ele) in item.topics" :key="ele.topicId">
+
+         
+            <div class="type2" v-if="ele.type===2">
+              <div class="left-text">
+                <div class="avatar"><img :src="ele.avatar" alt=""><span>{{ele.nickname}}</span></div>
+                <div class="avatar-content">
+                  <p class="item1">{{ele.title}}</p>
+                  <p class="item2">{{ele.subTitle}}</p>
+                  <div class="ps">
+                    <i class="iconfont icon-view"></i><span>{{ele.readCount}}</span>
+                  </div>
+                </div>
+              </div>
+                <div class="right-img">
+                  <img :src="ele.picUrl" alt="">
+                </div>
+            </div>
+            <div class="type0" v-if="ele.type===0">
+              <div class="avatar-info"><img :src="ele.avatar" alt=""><span>{{ele.nickname}}</span></div>
+              <div class="img-info"><img :src="ele.picUrl" alt=""></div>
+              <div class="ps"><i class="iconfont icon-view"></i><span>{{ele.readCount}}</span></div>
+            </div>    
+            </div> 
+          </div>
+         </li>
+        </div>
       </div>
-    </div>
+    </div> 
 </template>
 
 <script>
 import Header from "../../components/header/Header"
+import Bscroll from "better-scroll"
+import {mapState} from "vuex"
 export default {
   components:{
     Header
+  },
+  computed:{
+    ...mapState({
+      goodsArr:(state)=>state.seeGoods.goodsArr
+    })
+  },
+  watch:{
+    goodsArr(){
+      this.$nextTick(()=>{
+      new Bscroll(".content",{
+        click:true
+      })
+    })
+    }
+  },
+  mounted(){
+    this.$store.dispatch("getGoodsArr")
+    this.$nextTick(()=>{
+      new Bscroll(".content",{
+        click:true
+      })
+    })
   }
 }
 </script>
@@ -72,13 +122,87 @@ export default {
     .content
       position absolute
       top 86px
+      height 1058px
+      background #f4f4f4
       bottom -275px
       width 100%
-      .ul1
+      .recommend
+        background #fff
         li
           width 100%
-          margin 10px 0
-          padding 18px 18px
+          padding 20px 33px
           img 
             width 100%
+            border-radius 8px
+      .type2
+        width 100%
+        margin 20px 0
+        background #fff
+        padding 0 33px
+        display flex 
+        .left-text
+          display flex
+          width 50%
+          flex-direction column
+          justify-content space-around
+          .avatar
+            img 
+              margin 30px 20px 30px 0
+              width 56px
+              border-radius 50%
+              overflow hidden
+          .avatar-content
+            .item1
+              font-size 30px
+              color #000
+            .item2
+              width 100%
+              font-size 28px
+              white-space nowrap
+              text-overflow ellipsis
+              overflow hidden
+            .ps
+              color #ccc
+              margin-left 20px
+              margin-top 40px
+              margin-bottom 20px
+              i 
+                color #000
+                font-size 20px
+                margin-right 10px
+        .right-img
+          width 50%
+          img 
+            width 100%
+            margin-top 60px
+            border-radius 5px
+      .type0
+        width 100%
+        margin 20px 0
+        background #fff
+        padding 0 33px
+        display flex
+        flex-direction column
+        justify-content center
+        align-items center
+        .avatar-info
+          margin 30px 0
+          width 100%
+          img 
+            width 56px
+            border-radius 50%
+            margin-right 20px
+        .img-info
+          width 100%
+          img
+            height 375px
+        .ps
+          color #ccc
+          width 100%
+          margin 20px 0
+          i 
+            color #000
+            font-size 20px
+            margin-right 10px
+      
 </style>

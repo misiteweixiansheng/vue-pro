@@ -1,40 +1,42 @@
 <template>
  <div class="recom-wrapper">
-   <div class="content">
+   <div class="content-wrapper">
       <nav class="swiper-nav">
-          <Swiper/>
+       <Swiper/>
       </nav>
       <Policy :policyList="homelist.policyDescList"/>
       <KingKongModule :kklist="homelist.kingKongModule"/>
       <IndexActivityModule :activeModule="homelist.indexActivityModule"/>
+      <TableList/>
    </div>
  </div>
 </template>
 
 <script>
-import {reqHome} from "../../../../api"
 import Swiper from "./components/swiper"
 import Policy from "./components/policyList"
 import KingKongModule from "./components/kingKongModule"
 import IndexActivityModule from "./components/indexActivityModule"
+import TableList from "./components/tableType"
 import {mapState} from "vuex"
 import Bscroll from "better-scroll"
 export default{
   computed:{
    ...mapState({
       homelist:state=>state.recommend.homelist
-   })
+    })
   }
   ,
   components:{
     Swiper,
     Policy,
     KingKongModule,
-    IndexActivityModule
+    IndexActivityModule,
+    TableList
   },
   mounted(){
     this.$store.dispatch("getHomeList")
-    new Bscroll(" .recom-wrapper",{
+    this.scroll=new Bscroll(".recom-wrapper",{
       click:true
     })
   }

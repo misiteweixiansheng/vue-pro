@@ -8,8 +8,8 @@
          <img src="//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/indexLogo-a90bdaae6b.png" alt="">
         </div>
         <div slot="button" class="button">
-          <router-link class="search" to="/home"></router-link>
-          <router-link class="buycar" to="/home"></router-link>
+          <router-link class="search" to="/search"></router-link>
+          <router-link class="buycar" to="/buycar"></router-link>
         </div>
       </Header>
       <div class="content" v-if="$route.path==='/profile'">
@@ -52,11 +52,9 @@
 
 <script>
 import Header from "../../components/header/Header"
-import Login from "./components/login"
 export default {
   components:{
-    Header,
-    Login
+    Header
   },
 }
 </script>
